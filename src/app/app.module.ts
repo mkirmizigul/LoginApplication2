@@ -1,44 +1,41 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {RouterModule, Routes} from '@angular/router';
-import {AuthguardGuard} from './authguard.guard';
-import {UserService} from './user.service';
+import {AuthGuard} from './authguard';
+import {AuthenticationService} from './authentication.service';
 import { UserComponent } from './user/user.component';
+import { Http, RequestOptions, HttpModule } from '@angular/http';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { MenuComponent } from './menu/menu.component';
+
 const appRoutes:Routes = [
-  {
-    path:'users',
-    //component: UserComponent,
-    children: [
-      {
-        path:':name',
-        component: UserComponent
-      },
-      {
-        path:":name/:id",
-        component: UserComponent
-      }
-    ]
-  },
-  {
-    path:'dashboard',
-    canActivate:[AuthguardGuard],
-    component: DashboardComponent
-  },
+  
   {
     path:'',
     component: LoginFormComponent
   },
   {
+    path:'login',
+    component: LoginFormComponent
+  },
+  {
+    path:'users',
+    component: UserComponent
+  },
+  {
+    path:'dashboard',
+    canActivate:[AuthGuard],
+    component: DashboardComponent
+  },
+  {
   path:'**',
   component: NotfoundComponent
   }
-
 ]
 
 
@@ -49,15 +46,16 @@ const appRoutes:Routes = [
     DashboardComponent,
     UserComponent,
     NotfoundComponent,
-    HttpClientModule
+    MenuComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
     BrowserModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    HttpModule,
+    HttpClientModule
   ],
-  providers: [UserService,AuthguardGuard],
+  providers: [AuthenticationService,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
