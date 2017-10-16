@@ -4,7 +4,7 @@
 
     <div class="form-group">
       <label>Kullanıcı Adı</label>
-      <input type="text" placeholder="Kullanıcı Adı" class="form-control"formControlName="username">
+      <input type="text" placeholder="Kullanıcı Adı" class="form-control" formControlName="username">
     </div>
     <div *ngIf="!loginForm.valid" class="alert alert-danger sm">
         <div *ngIf="loginForm.get('username').hasError('required')">Kullanıcı Alani zorunludur!</div>
@@ -18,6 +18,6 @@
         <div *ngIf="loginForm.get('password').hasError('required')">Sifre alani zorunludur!</div>
         <div *ngIf="loginForm.get('password').hasError('minlength')">Sifreniz en az 6 karakter olmak zorunda</div>
   </div>
-    <button [disabled]="!loginForm.valid" type="submit"value = "Login" class="btn btn-sm btn-success">{{buttonText}}</button>
+    <button [disabled]="!loginForm.valid" type="submit" value = "Login" class="btn btn-sm btn-success">{{buttonText}}</button>
   </form>
 </div>
