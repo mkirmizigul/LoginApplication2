@@ -1,0 +1,23 @@
+<div class="col-md-12">
+  <h3>{{formTitle}}</h3>
+  <form [formGroup]="loginForm" (ngSubmit)="loginUser($event)">
+
+    <div class="form-group">
+      <label>Kullanıcı Adı</label>
+      <input type="text" placeholder="Kullanıcı Adı" class="form-control"formControlName="username">
+    </div>
+    <div *ngIf="!loginForm.valid" class="alert alert-danger sm">
+        <div *ngIf="loginForm.get('username').hasError('required')">Kullanıcı Alani zorunludur!</div>
+   </div>
+
+    <div class="form-group">
+      <label>Sifre</label>
+      <input type="password" placeholder="******" class="form-control"formControlName="password">
+    </div>
+    <div *ngIf="!loginForm.valid" class="alert alert-warning sm">
+        <div *ngIf="loginForm.get('password').hasError('required')">Sifre alani zorunludur!</div>
+        <div *ngIf="loginForm.get('password').hasError('minlength')">Sifreniz en az 6 karakter olmak zorunda</div>
+  </div>
+    <button [disabled]="!loginForm.valid" type="submit"value = "Login" class="btn btn-sm btn-success">{{buttonText}}</button>
+  </form>
+</div>
